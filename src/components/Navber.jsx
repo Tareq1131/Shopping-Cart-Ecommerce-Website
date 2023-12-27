@@ -1,15 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Navber = () => {
   return (
     <>
     <header>
         <div className="nav-bar">
-            <div className="brand">E-Cart</div>
+            <Link to={'/'} className="brand">E-Cart</Link>
             <div className="search-bar">
                 <input type='text' placeholder='Search products'></input>
             </div>
-            <div className="cart">Cart</div>
+            <Link to={'/cart'} className="cart">Cart</Link>
         </div>
         <div className="nav-bar-wrapper">
             <div className="items">Filter by {'->'}</div>
