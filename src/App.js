@@ -6,14 +6,18 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import ProductDetail from './components/ProductDetail';
 import SearchItem from './components/SearchItem';
 import Cart from './components/Cart';
+import { items } from './Data';
+import { useState } from 'react';
+
 
 function App() {
+  const[data,setData]= useState([...items])
   return (
     <>
     <Router>
     <Navber/>
     <Routes>
-      <Route path='/' element={ <Product/>}/>
+      <Route path='/' element={ <Product items= {data}/>}/>
       <Route path='/product/:id' element={ <ProductDetail/>}/>
       <Route path='/search/:term' element={ <SearchItem/>}/>
       <Route path='/cart' element={ <Cart/>}/>
