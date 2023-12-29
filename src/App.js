@@ -22,7 +22,7 @@ function App() {
           />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/search/:term" element={<SearchItem />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart cart={cart} setCart={setCart}/>} />
         </Routes>
       </Router>
     </>
