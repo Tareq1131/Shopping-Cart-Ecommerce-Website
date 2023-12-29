@@ -1,10 +1,45 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
-const Product = ({items}) => {
+const Product = ({items, cart, setCart}) => {
+
+  const addToCart = (id, title, price, description, imgSrc) =>{
+    const obj = {
+        id, title, price, description, imgSrc
+    }
+    setCart([...cart,obj ]);
+    console.log('merch cart element',cart)
+    toast.success('item added on cart', {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+  }
+
   return (
     <>
+
+<ToastContainer
+position="top-right"
+autoClose={1500}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
+
       <div className="container my-5">
         <div className="row">
           {items.map((product) => {
@@ -32,7 +67,9 @@ const Product = ({items}) => {
                        {product.description}
                       </p>
                       <button className="btn btn-primary mx-3">{product.price}{' '}TK</button>
-                      <button className="btn btn-warning">Add To Cart</button>
+                      <button 
+                      onClick={()=>addToCart(product.id, product.title, product.price, product.description, product.imgSrc)}
+                      className="btn btn-warning">Add To Cart</button>
                     </div>
                   </div>
                 </div>
