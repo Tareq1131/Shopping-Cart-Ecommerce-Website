@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { items } from "../Data";
 import Product from "./Product";
+import { ToastContainer, toast } from "react-toastify";
 
-const ProductDetail = () => {
+const ProductDetail = ({ cart, setCart }) => {
   const { id } = useParams();
 
   const [product, setProduct] = useState({});
@@ -19,8 +20,42 @@ const ProductDetail = () => {
     setRelatedProducts(relatedProduct);
   }, [id, product.category]);
 
+  const addToCart = (id, title, price, description, imgSrc) => {
+    const obj = {
+      id,
+      title,
+      price,
+      description,
+      imgSrc,
+    };
+    setCart([...cart, obj]);
+    console.log("merch cart element", cart);
+    toast.success("item added on cart", {
+      position: "top-right",
+      autoClose: 1500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div className="container con">
         <div className="img">
           <img src={product.imgSrc} alt=""></img>
@@ -29,11 +64,24 @@ const ProductDetail = () => {
           <h1 className="card-title">{product.title}</h1>
           <p className="card-text">{product.description}</p>
           <button className="btn btn-primary mx-3">{product.price} TK</button>
-          <button className="btn btn-warning">Add To Cart</button>
+          <button
+            onClick={() =>
+              addToCart(
+                product.id,
+                product.title,
+                product.price,
+                product.description,
+                product.imgSrc
+              )
+            }
+            className="btn btn-warning"
+          >
+            Add To Cart
+          </button>
         </div>
       </div>
       <h1 className="text-center">Related Products</h1>
-      <Product items={relatedProducts}></Product>
+      <Product cart={cart} setCart={setCart} items={relatedProducts}></Product>
     </>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { items } from "../Data";
+import { BsCartCheckFill } from "react-icons/bs";
 
 
 const Navber = ({ setData, cart }) => {
@@ -41,7 +42,7 @@ const Navber = ({ setData, cart }) => {
           </form>
           <Link to={"/cart"} className="cart">
             <button type="button" className="btn btn-primary position-relative">
-              Cart
+            <BsCartCheckFill style={{fontSize:'1.5rem'}} />
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {cart.length}
                 <span className="visually-hidden">unread messages</span>
