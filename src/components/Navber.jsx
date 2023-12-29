@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { items } from "../Data";
 
 const Navber = ({ setData }) => {
+  const navigate = useNavigate();
+  const [searchterm, setSearchterm] = useState("");
+
   const filterByCategory = (category) => {
     const element = items.filter((product) => product.category === category);
     // console.log(element)
@@ -13,6 +16,12 @@ const Navber = ({ setData }) => {
     const element = items.filter((product) => product.price >= price);
     setData(element);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/${searchterm}`);
+    setSearchterm("")
+  };
   return (
     <>
       <header className="sticky-top">
@@ -20,9 +29,14 @@ const Navber = ({ setData }) => {
           <Link to={"/"} className="brand">
             E-Cart
           </Link>
-          <div className="search-bar">
-            <input type="text" placeholder="Search products"></input>
-          </div>
+          <form onSubmit={handleSubmit} className="search-bar">
+            <input
+              value={searchterm}
+              onChange={(e) => setSearchterm(e.target.value)}
+              type="text"
+              placeholder="Search products"
+            ></input>
+          </form>
           <Link to={"/cart"} className="cart">
             Cart
           </Link>
